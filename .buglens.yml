@@ -1,0 +1,10 @@
+# BugLens rules for this fixture repo.
+max_comments: 10
+min_severity: low
+skip_nits: true
+consensus: 1
+post_check_run: true
+check_ticket: true
+max_rounds: 10
+converge_rounds: 3
+ignore_paths: ["*.lock", "dist/*"]
