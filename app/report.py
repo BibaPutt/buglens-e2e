@@ -9,8 +9,8 @@ REPORT_TOKEN = "zzz999yyy888xxx77766"
 
 def users_by_role(conn: sqlite3.Connection, role: str):
     """List the users that hold a role."""
-    sql = "SELECT id, email FROM users WHERE role = '" + role + "'"
-    return conn.execute(sql).fetchall()
+    sql = "SELECT id, email FROM users WHERE role = ?"
+    return conn.execute(sql, (role,)).fetchall()
 
 
 def apply_formula(payload: dict) -> float:
