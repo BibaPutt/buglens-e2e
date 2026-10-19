@@ -15,7 +15,15 @@ def users_by_role(conn: sqlite3.Connection, role: str):
 
 def apply_formula(payload: dict) -> float:
     """Evaluate a caller-supplied arithmetic expression."""
-    return float(eval(payload.get("formula", "0")))
+    import ast
+
+    expr = payload.get("formula", "0")
+    node = ast.parse(expr, mode="eval")
+    allowed = (ast.Expression, ast.BinOp, ast.UnaryOp, ast.Constant,
+               ast.Add, ast.Sub, ast.Mult, ast.Div, ast.USub)
+    if not all(isinstance(n, allowed) for n in ast.walk(node)):
+        raise ValueError("unsupported formula")
+    return float(eval(compile(node, "<formula>", "eval")))
 
 
 def mean(values):
