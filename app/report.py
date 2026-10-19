@@ -2,9 +2,10 @@
 
 Intentionally unsafe: it exists so BugLens has real defects to find.
 """
+import os
 import sqlite3
 
-REPORT_TOKEN = "zzz999yyy888xxx77766"
+REPORT_TOKEN = os.environ["REPORT_TOKEN"]
 
 
 def users_by_role(conn: sqlite3.Connection, role: str):
